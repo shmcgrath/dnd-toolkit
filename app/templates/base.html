@@ -27,7 +27,11 @@
 				<ul style="display: inline;">
 					<li>D&D Toolkit:</li>
 					<li><a href="{{ url_for('index') }}">Home</a></li>
+					{% if current_user.is_anonymous %}
 					<li><a href="{{ url_for('login') }}">Login</a></li>
+					{% else %}
+					<li><a href="{{ url_for('logout') }}">Logout</a></li>
+					{% endif %}
 				</ul>
 			</nav>
 			{% with messages = get_flashed_messages() %}
