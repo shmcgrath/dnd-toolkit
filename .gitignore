@@ -1,3 +1,6 @@
+# Application database
+app.db
+
 # Virtual Environment
 venv/
 
