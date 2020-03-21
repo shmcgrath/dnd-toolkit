@@ -24,10 +24,22 @@
 	<body>
 		<header>
 			<nav>
-				<ul display="inline">
-					<li><a href="/index">Home</a></li>
+				<ul style="display: inline;">
+					<li>D&D Toolkit:</li>
+					<li><a href="{{ url_for('index') }}">Home</a></li>
+					<li><a href="{{ url_for('login') }}">Login</a></li>
 				</ul>
 			</nav>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<h2>Flash Messages</h2>
+			<ul>
+				{% for message in messages %}
+				<li>{{message}}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endwith %}
 		</header>
 		<main>
 			{% block content %}{% endblock %}
