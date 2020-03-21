@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		{% if title %}
+		<title>{{ title }} - D&D Toolkit</title>
+		{% else %}
+		<title>Welcome to D&D Toolkit</title>
+		{% endif %}
+		<meta name="author" content="Sarah H. McGrath"/>
+		<!-- Style Sheets -->
+		<link href="https://fonts.googleapis.com/css?family=Space+Mono|Work+Sans" rel="stylesheet">
+		<link rel="stylesheet" href="css/main.css">
+		<!-- Additional CSS -->
+		<!-- Scripts -->
+		<script type="text/javascript" src="script/main.js"></script>
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<!-- Additional Javascript -->
+	</head>
+	<body>
+		<header>
+			<nav>
+				<ul display="inline">
+					<li><a href="/index">Home</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+		<footer>
+		</footer>
+	</body>
+</html>
+

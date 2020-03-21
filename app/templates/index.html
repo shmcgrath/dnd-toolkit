@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Hello, {{ user.username }}!</h1>
+	{% for char in chars %}
+	<div><p>{{ char.owner.username }} created: <b>{{ char.body }}</b></p></div>
+	{% endfor %}
+{% endblock %}
+
