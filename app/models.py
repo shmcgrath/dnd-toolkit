@@ -8,6 +8,9 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(128), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    avatar = db.Column(db.String(255))
+    about_me = db.Column(db.String(255))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     player_characters = db.relationship('PlayerCharacter', backref='creator',
             lazy='dynamic')
 

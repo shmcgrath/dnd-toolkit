@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>User: {{ user.username }}</h1>
+	<img src="{{ user.avatar }}" alt="{{ user.username }} avatar" />
+	{% if user.last_seen %}
+	<p>User last seen on: {{ user.last_seen }}</p>
+	{% endif %}
+	{% if user.about_me %}
+	<p>About me: {{ user.about_me }}</p>
+	{% endif %}
+	{% if user == current_user %}
+	<p><a href="{{ url_for('edit_user') }}">Edit User Profile</a></p>
+	{% endif %}
+	<table>
+		<caption>Player Characters</caption>
+		<thead>
+			<tr>
+				<th colspan="1">Image</th>
+				<th colspan="1">Player Char</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for character in playerchars %}
+			{% include '_playercharacter.jinja2' %}
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock content %}

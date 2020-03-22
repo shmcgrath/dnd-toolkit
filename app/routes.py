@@ -1,25 +1,26 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, EditUserForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+from datetime import datetime
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    chars = [
+    playerchars = [
         {
-            'owner': {'username': 'Mo'},
-            'body': 'Level 3 Monk'
+            'creator': {'username': 'Mo'},
+            'info': 'Level 3 Monk'
         },
         {
-            'owner': {'username': 'Jon'},
-            'body': 'Level 10 Cleric'
+            'creator': {'username': 'Jon'},
+            'info': 'Level 10 Cleric'
         }
     ]
-    return render_template('index.html', title='Home', chars=chars)
+    return render_template('index.html', title='Home', playerchars=playerchars)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -57,3 +58,34 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    playerchars = [
+            {'creator': user, 'info': 'Level 3 Cleric'},
+            {'creator': user, 'info': 'Level 10 Monk'}
+    ]
+    return render_template('user.html', user=user, playerchars=playerchars,
+            title='Profile')
+
+@app.route('/edit_user', methods=['GET', 'POST'])
+@login_required
+def edit_user():
+    form = EditUserForm()
+    if form.validate_on_submit():
+        current_user.avatar = form.avatar.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('You have changed your user profile.')
+        return redirect(url_for('user', username=current_user.username))
+    elif request.method == 'GET':
+        form.avatar.data = current_user.avatar
+        form.about_me.data = current_user.about_me
+    return render_template('edit_user.html', title='Edit Profile', form=form)
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()

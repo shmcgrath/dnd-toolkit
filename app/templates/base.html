@@ -15,6 +15,12 @@
 		<link href="https://fonts.googleapis.com/css?family=Space+Mono|Work+Sans" rel="stylesheet">
 		<link rel="stylesheet" href="css/main.css">
 		<!-- Additional CSS -->
+		<style type="text/css">
+			img {
+				max-width: 100px;
+				height: auto;
+			}
+		</style>
 		<!-- Scripts -->
 		<script type="text/javascript" src="script/main.js"></script>
 		<!-- jQuery -->
@@ -30,6 +36,7 @@
 					{% if current_user.is_anonymous %}
 					<li><a href="{{ url_for('login') }}">Login</a></li>
 					{% else %}
+					<li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
 					<li><a href="{{ url_for('logout') }}">Logout</a></li>
 					{% endif %}
 				</ul>

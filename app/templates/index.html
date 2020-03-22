@@ -2,8 +2,19 @@
 
 {% block content %}
 	<h1>Hello, {{ current_user.username }}!</h1>
-	{% for char in chars %}
-	<div><p>{{ char.owner.username }} created: <b>{{ char.body }}</b></p></div>
-	{% endfor %}
+	<table>
+		<caption>Friends</caption>
+		<thead>
+			<tr>
+				<th colspan="1">Friend Avatar</th>
+				<th colspan="1">Friend Player Character</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for character in playerchars %}
+			{% include '_playercharacter.jinja2' %}
+		{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
 
